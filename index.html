@@ -1,0 +1,2030 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chandan Prasad Sah — .NET Developer</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Sora:wght@300;400;600;800&display=swap"
+    rel="stylesheet" />
+
+  <style>
+    :root {
+      --clr-bg: #0a0d14;
+      --clr-surface: #111520;
+      --clr-card: #161b2e;
+      --clr-border: #1f2940;
+      --clr-accent: #00e5ff;
+      --clr-accent2: #7c3aed;
+      --clr-text: #e2e8f0;
+      --clr-muted: #64748b;
+      --clr-white: #ffffff;
+
+      --font-display: 'Sora', sans-serif;
+      --font-mono: 'Space Mono', monospace;
+
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+
+      --transition-base: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      --shadow-glow: 0 0 24px rgba(0, 229, 255, 0.18);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--clr-bg);
+      color: var(--clr-text);
+      font-family: var(--font-display);
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    .font-mono {
+      font-family: var(--font-mono);
+    }
+
+    .text-accent {
+      color: var(--clr-accent) !important;
+    }
+
+    .text-muted-custom {
+      color: var(--clr-muted) !important;
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--clr-bg);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--clr-accent2);
+      border-radius: 3px;
+    }
+
+    .navbar-custom {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 1rem 2rem;
+      background: rgba(10, 13, 20, 0.72);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--clr-border);
+      transition: background var(--transition-base);
+    }
+
+    .navbar-custom .nav-logo {
+      font-family: var(--font-mono);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--clr-accent);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+    }
+
+    .navbar-custom .nav-logo span {
+      color: var(--clr-text);
+    }
+
+    .nav-links a {
+      color: var(--clr-muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-left: 1.8rem;
+      transition: color var(--transition-base);
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: var(--clr-accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--clr-accent);
+    }
+
+    .nav-links a:hover::after {
+      transform: scaleX(1);
+    }
+
+    .navbar-toggler-icon-custom {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .navbar-toggler-icon-custom span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--clr-accent);
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding: 7rem 0 4rem;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: var(--clr-bg);
+      overflow: hidden;
+    }
+
+    .hero-bg::before,
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.4;
+    }
+
+    .hero-bg::before {
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, #00e5ff33, transparent 70%);
+      top: -120px;
+      left: -100px;
+      animation: blobDrift1 14s ease-in-out infinite alternate;
+    }
+
+    .hero-bg::after {
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, #7c3aed44, transparent 70%);
+      bottom: -60px;
+      right: -60px;
+      animation: blobDrift2 18s ease-in-out infinite alternate;
+    }
+
+
+    @keyframes blobDrift1 {
+      0% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      100% {
+        transform: translate(80px, 60px) scale(1.15);
+      }
+    }
+
+    @keyframes blobDrift2 {
+      0% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      100% {
+        transform: translate(-60px, -40px) scale(1.1);
+      }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--clr-accent);
+      border: 1px solid var(--clr-accent);
+      padding: 3px 12px;
+      border-radius: 100px;
+      margin-bottom: 1.2rem;
+      letter-spacing: 0.1em;
+    }
+
+    .hero-name {
+      font-size: clamp(2.8rem, 6vw, 5.5rem);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      color: var(--clr-white);
+    }
+
+    .hero-name .line {
+      display: block;
+      overflow: hidden;
+    }
+
+    .hero-name .line-inner {
+      display: block;
+      animation: slideUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .hero-name .line:nth-child(1) .line-inner {
+      animation-delay: 0.3s;
+    }
+
+    .hero-name .line:nth-child(2) .line-inner {
+      animation-delay: 0.55s;
+    }
+
+    .hero-name .line:nth-child(3) .line-inner {
+      animation-delay: 0.75s;
+      color: var(--clr-accent);
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(110%);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--clr-muted);
+      max-width: 520px;
+      margin-top: 1.5rem;
+      animation: fadeInUp 0.9s 1s both;
+    }
+
+    /* ANIMATION CONCEPT: Reusable fadeInUp keyframe for subtle entrance.
+       Opacity 0→1 + translateY offset creates the "float in" entrance. */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-cta {
+      margin-top: 2.5rem;
+      animation: fadeInUp 0.9s 1.2s both;
+    }
+
+    .btn-primary-custom {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--clr-accent);
+      color: #000;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      padding: 0.75rem 1.8rem;
+      border-radius: var(--radius-sm);
+      border: none;
+      text-decoration: none;
+      /* TRANSITION CONCEPT: box-shadow glow transition on hover.
+         Shadow animates from 0 to a colored glow — creates "lit button" feel. */
+      transition: box-shadow var(--transition-base), transform var(--transition-base);
+    }
+
+    .btn-primary-custom:hover {
+      box-shadow: 0 0 28px rgba(0, 229, 255, 0.55);
+      transform: translateY(-2px);
+      color: #000;
+    }
+
+    .btn-outline-custom {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--clr-text);
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      padding: 0.75rem 1.8rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--clr-border);
+      text-decoration: none;
+      transition: border-color var(--transition-base), color var(--transition-base), transform var(--transition-base);
+    }
+
+    .btn-outline-custom:hover {
+      border-color: var(--clr-accent);
+      color: var(--clr-accent);
+      transform: translateY(-2px);
+    }
+
+    /* ANIMATION CONCEPT: Hero floating code card.
+       CSS animation: float — infinite up/down translateY loop, like a bobbing element.
+       Mimics physical buoyancy in a zero-gravity environment. */
+    .hero-card {
+      background: var(--clr-card);
+      border: 1px solid var(--clr-border);
+      border-radius: var(--radius-lg);
+      padding: 1.8rem 2rem;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      position: relative;
+      z-index: 2;
+      animation: float 5s ease-in-out infinite, fadeInUp 1s 0.9s both;
+      box-shadow: var(--shadow-glow);
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-14px);
+      }
+    }
+
+    .hero-card .card-title {
+      color: var(--clr-muted);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 1rem;
+    }
+
+    .code-line {
+      margin: 4px 0;
+      line-height: 1.6;
+    }
+
+    .code-key {
+      color: #7c3aed;
+    }
+
+    .code-str {
+      color: var(--clr-accent);
+    }
+
+    .code-num {
+      color: #f97316;
+    }
+
+    .code-obj {
+      color: #94a3b8;
+    }
+
+    /* ANIMATION CONCEPT: Typing cursor blink.
+       A blinking block cursor using @keyframes opacity toggle — classic terminal aesthetic. */
+    .cursor {
+      display: inline-block;
+      width: 8px;
+      height: 1em;
+      background: var(--clr-accent);
+      vertical-align: text-bottom;
+      animation: blink 1.1s step-end infinite;
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: 0;
+      }
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--clr-border);
+    }
+
+    .stat-item .num {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--clr-accent);
+    }
+
+    .stat-item .label {
+      font-size: 0.68rem;
+      color: var(--clr-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* ════════════════════════════════════════════════
+       SECTION TITLES
+    ════════════════════════════════════════════════ */
+    .section-wrap {
+      padding: 6rem 0;
+    }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--clr-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      color: var(--clr-white);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    .section-title .accent {
+      color: var(--clr-accent);
+    }
+
+    .section-divider {
+      width: 48px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--clr-accent), var(--clr-accent2));
+      border-radius: 2px;
+      margin: 1.2rem 0 2.5rem;
+    }
+
+    /* ════════════════════════════════════════════════
+       SKILLS SECTION
+    ════════════════════════════════════════════════ */
+    #skills {
+      background: var(--clr-surface);
+    }
+
+    .skill-category {
+      background: var(--clr-card);
+      border: 1px solid var(--clr-border);
+      border-radius: var(--radius-md);
+      padding: 1.8rem;
+      height: 100%;
+      /* TRANSITION CONCEPT: border-color + transform on hover.
+         Creates a "lift" effect — card appears to rise off the page. */
+      transition: border-color var(--transition-base), transform var(--transition-base), box-shadow var(--transition-base);
+    }
+
+    .skill-category:hover {
+      border-color: var(--clr-accent);
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .skill-cat-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-sm);
+      background: linear-gradient(135deg, var(--clr-accent2), var(--clr-accent));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      color: #fff;
+    }
+
+    .skill-cat-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--clr-text);
+      margin-bottom: 1rem;
+      font-family: var(--font-mono);
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .skill-tag {
+      font-size: 0.72rem;
+      font-family: var(--font-mono);
+      color: var(--clr-muted);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--clr-border);
+      padding: 3px 10px;
+      border-radius: 100px;
+      /* TRANSITION CONCEPT: background + color transition on hover
+         gives each tag a soft glow response — micro-interaction feedback */
+      transition: background var(--transition-base), color var(--transition-base), border-color var(--transition-base);
+    }
+
+    .skill-tag:hover {
+      background: rgba(0, 229, 255, 0.1);
+      color: var(--clr-accent);
+      border-color: rgba(0, 229, 255, 0.3);
+    }
+
+    /* ANIMATION CONCEPT: Animated progress bars.
+       width animates from 0 to final % via Anime.js (called in JS section).
+       The bar fill uses a gradient sweep for extra polish. */
+    .skill-bar-wrap {
+      margin-bottom: 1.4rem;
+    }
+
+    .skill-bar-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 6px;
+      font-size: 0.82rem;
+      color: var(--clr-text);
+    }
+
+    .skill-bar-label span:last-child {
+      font-family: var(--font-mono);
+      color: var(--clr-accent);
+      font-size: 0.78rem;
+    }
+
+    .skill-bar-track {
+      height: 6px;
+      background: var(--clr-border);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .skill-bar-fill {
+      height: 100%;
+      border-radius: 3px;
+      background: linear-gradient(90deg, var(--clr-accent2), var(--clr-accent));
+      width: 0;
+      /* Anime.js will animate this */
+    }
+
+    /* ════════════════════════════════════════════════
+       EXPERIENCE
+    ════════════════════════════════════════════════ */
+    #experience {
+      background: var(--clr-bg);
+    }
+
+    /* ANIMATION CONCEPT: Timeline vertical line with a "drawing" reveal.
+       The ::after pseudo creates the line, scaleY(0) → scaleY(1) on scroll
+       (triggered by Anime.js / IntersectionObserver). */
+    .timeline {
+      position: relative;
+      padding-left: 2.5rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 8px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--clr-accent), var(--clr-accent2));
+      border-radius: 2px;
+      transform-origin: top;
+      /* Will be animated by Anime.js from scaleY(0) to scaleY(1) */
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 3.5rem;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -2.5rem;
+      top: 4px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--clr-accent);
+      border: 3px solid var(--clr-bg);
+      /* ANIMATION CONCEPT: pulse ring — a CSS box-shadow keyframe animation
+         radiates outward to draw attention to active timeline item. */
+      animation: pulse 2.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 0 rgba(0, 229, 255, 0.5);
+      }
+
+      50% {
+        box-shadow: 0 0 0 10px rgba(0, 229, 255, 0);
+      }
+    }
+
+    .timeline-card {
+      background: var(--clr-card);
+      border: 1px solid var(--clr-border);
+      border-radius: var(--radius-md);
+      padding: 1.8rem 2rem;
+      transition: border-color var(--transition-base), box-shadow var(--transition-base);
+    }
+
+    .timeline-card:hover {
+      border-color: rgba(0, 229, 255, 0.3);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .timeline-role {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--clr-white);
+    }
+
+    .timeline-company {
+      font-size: 0.88rem;
+      color: var(--clr-accent);
+      font-family: var(--font-mono);
+      margin: 4px 0;
+    }
+
+    .timeline-period {
+      font-size: 0.75rem;
+      color: var(--clr-muted);
+      font-family: var(--font-mono);
+      margin-bottom: 1rem;
+    }
+
+    .timeline-bullets li {
+      color: var(--clr-muted);
+      font-size: 0.88rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-bullets li::marker {
+      color: var(--clr-accent);
+    }
+
+    /* ════════════════════════════════════════════════
+       PROJECTS
+    ════════════════════════════════════════════════ */
+    #projects {
+      background: var(--clr-surface);
+    }
+
+    .project-card {
+      background: var(--clr-card);
+      border: 1px solid var(--clr-border);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      /* TRANSITION: card lift + border glow */
+      transition: transform var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base);
+    }
+
+    /* ANIMATION CONCEPT: shimmer sweep — a diagonal highlight passes across the card on hover.
+       Implemented as an absolutely positioned ::before that translates from left:-100% to left:100%.
+       Uses CSS transition with a large translateX shift. */
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.05), transparent);
+      transform: skewX(-20deg);
+      transition: left 0.7s ease;
+    }
+
+    .project-card:hover::before {
+      left: 150%;
+    }
+
+    .project-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(0, 229, 255, 0.3);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .project-num {
+      font-family: var(--font-mono);
+      font-size: 3rem;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.05);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .project-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--clr-white);
+      margin-bottom: 0.7rem;
+    }
+
+    .project-desc {
+      font-size: 0.88rem;
+      color: var(--clr-muted);
+      flex: 1;
+      line-height: 1.7;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 1.5rem;
+    }
+
+    .project-tag {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--clr-accent);
+      background: rgba(0, 229, 255, 0.07);
+      border: 1px solid rgba(0, 229, 255, 0.2);
+      padding: 3px 9px;
+      border-radius: 100px;
+    }
+
+    /* ════════════════════════════════════════════════
+       ABOUT / EDUCATION
+    ════════════════════════════════════════════════ */
+    #about {
+      background: var(--clr-bg);
+    }
+
+    .edu-card {
+      background: var(--clr-card);
+      border: 1px solid var(--clr-border);
+      border-radius: var(--radius-md);
+      padding: 1.8rem;
+      display: flex;
+      gap: 1.2rem;
+      align-items: flex-start;
+      transition: border-color var(--transition-base), transform var(--transition-base);
+    }
+
+    .edu-card:hover {
+      border-color: rgba(124, 58, 237, 0.5);
+      transform: translateY(-4px);
+    }
+
+    .edu-icon {
+      width: 48px;
+      height: 48px;
+      flex-shrink: 0;
+      border-radius: var(--radius-sm);
+      background: linear-gradient(135deg, var(--clr-accent2), rgba(124, 58, 237, 0.4));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      color: #fff;
+    }
+
+    .edu-degree {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--clr-white);
+    }
+
+    .edu-school {
+      font-size: 0.82rem;
+      color: var(--clr-accent);
+      font-family: var(--font-mono);
+    }
+
+    .edu-year {
+      font-size: 0.75rem;
+      color: var(--clr-muted);
+      font-family: var(--font-mono);
+    }
+
+    .about-highlight {
+      background: linear-gradient(135deg, rgba(0, 229, 255, 0.07), rgba(124, 58, 237, 0.07));
+      border: 1px solid rgba(0, 229, 255, 0.15);
+      border-radius: var(--radius-md);
+      padding: 2rem;
+    }
+
+    .about-highlight p {
+      font-size: 0.95rem;
+      color: var(--clr-muted);
+      line-height: 1.8;
+    }
+
+    /* ════════════════════════════════════════════════
+       CONTACT
+    ════════════════════════════════════════════════ */
+    #contact {
+      background: var(--clr-surface);
+      text-align: center;
+    }
+
+    .contact-strip {
+      background: var(--clr-card);
+      border: 1px solid var(--clr-border);
+      border-radius: var(--radius-lg);
+      padding: 3.5rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ANIMATION CONCEPT: Rotating gradient border using conic-gradient.
+       A ::before pseudo-element with conic-gradient rotates via @keyframes spin.
+       Masked with inner background to show only border edges. */
+    .contact-strip::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      background: conic-gradient(from 0deg, var(--clr-accent), var(--clr-accent2), var(--clr-accent));
+      border-radius: var(--radius-lg);
+      animation: rotateBorder 4s linear infinite;
+      z-index: 0;
+    }
+
+    .contact-strip::after {
+      content: '';
+      position: absolute;
+      inset: 2px;
+      background: var(--clr-card);
+      border-radius: calc(var(--radius-lg) - 1px);
+      z-index: 1;
+    }
+
+    .contact-inner {
+      position: relative;
+      z-index: 2;
+    }
+
+    @keyframes rotateBorder {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .contact-heading {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      color: var(--clr-white);
+      margin-bottom: 1rem;
+    }
+
+    .contact-sub {
+      font-size: 0.95rem;
+      color: var(--clr-muted);
+      max-width: 440px;
+      margin: 0 auto 2rem;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--clr-border);
+      color: var(--clr-text);
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      padding: 0.65rem 1.3rem;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      transition: background var(--transition-base), border-color var(--transition-base), color var(--transition-base), transform var(--transition-base);
+    }
+
+    .contact-link:hover {
+      background: rgba(0, 229, 255, 0.1);
+      border-color: var(--clr-accent);
+      color: var(--clr-accent);
+      transform: translateY(-3px);
+    }
+
+    .contact-link i {
+      font-size: 1rem;
+    }
+
+    /* ════════════════════════════════════════════════
+       FOOTER
+    ════════════════════════════════════════════════ */
+    footer {
+      background: var(--clr-bg);
+      border-top: 1px solid var(--clr-border);
+      padding: 1.5rem 0;
+      text-align: center;
+    }
+
+    footer p {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--clr-muted);
+    }
+
+    footer span {
+      color: var(--clr-accent);
+    }
+
+    /* ════════════════════════════════════════════════
+       SCROLL REVEAL CLASS
+       Anime.js will target .reveal elements (opacity 0, translateY offset)
+       and animate them in when they enter the viewport.
+    ════════════════════════════════════════════════ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+
+    .reveal.animated {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ════════════════════════════════════════════════
+       HERO PROFILE PHOTO
+       ─────────────────────────────────────────────
+       ANIMATION CONCEPT — Multi-layer entrance:
+         1. heroImgFade keyframe: opacity 0→1 + slight
+            scale 0.92→1 so photo "blooms" into view.
+            animation-delay:1.1s lets text lines appear first.
+         2. Rotating glow ring: .hero-photo-wrap::before is
+            a conic-gradient border that reuses rotateBorder
+            keyframe (same one used in the contact section),
+            creating a spinning accent ring around the photo.
+         3. CSS filter: brightness transition on hover — subtle
+            brightening micro-interaction on mouse-over.
+    ════════════════════════════════════════════════ */
+    .hero-photo-wrap {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      margin: 0 auto 1.8rem;
+    }
+
+    /* Spinning conic-gradient ring around the photo.
+       CONCEPT: ::before is positioned slightly outside the image,
+       filled with conic-gradient, and rotated infinitely.
+       The inner mask (::after) covers the centre, so only
+       the thin border edge is visible — creates animated border. */
+    .hero-photo-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg,
+          var(--clr-accent),
+          var(--clr-accent2),
+          transparent 60%,
+          var(--clr-accent));
+      animation: rotateBorder 3s linear infinite;
+      z-index: 0;
+    }
+
+    .hero-photo-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 3px;
+      border-radius: 50%;
+      background: var(--clr-bg);
+      /* covers centre, leaves only ring edge */
+      z-index: 1;
+    }
+
+    .hero-photo {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: top center;
+      border: 3px solid var(--clr-bg);
+
+      /* ANIMATION CONCEPT: heroImgFade
+         opacity: 0→1 means the photo fades in (not a hard cut).
+         scale: 0.92→1 adds a subtle zoom-bloom effect.
+         animation-fill-mode: both holds the start state before
+         the delay fires, preventing a flash of full opacity. */
+      animation: heroImgFade 1.1s cubic-bezier(0.16, 1, 0.3, 1) 1.1s both;
+
+      /* TRANSITION CONCEPT: filter brightness on hover.
+         CSS filter: brightness() changes image lightness.
+         transition makes it animate smoothly — a gentle "glow" on hover. */
+      transition: filter 0.4s ease, transform 0.4s ease;
+    }
+
+    .hero-photo:hover {
+      filter: brightness(1.12);
+      transform: scale(1.03);
+    }
+
+    @keyframes heroImgFade {
+      from {
+        opacity: 0;
+        transform: scale(0.92);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    /* Fallback placeholder when no image file is found */
+    .photo-placeholder {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      border-radius: 50%;
+      background: var(--clr-card);
+      border: 2px dashed var(--clr-border);
+      display: none;
+      /* hidden by default; JS shows it via .photo-missing */
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      color: var(--clr-muted);
+      font-size: 0.7rem;
+      font-family: var(--font-mono);
+      text-align: center;
+      padding: 1rem;
+    }
+
+    .photo-placeholder i {
+      font-size: 2rem;
+      color: var(--clr-border);
+    }
+
+    /* When image fails to load, show placeholder */
+    .hero-photo-wrap.photo-missing .photo-placeholder {
+      display: flex;
+    }
+
+    .hero-photo-wrap.photo-missing .hero-photo {
+      opacity: 0;
+    }
+
+    /* ════════════════════════════════════════════════
+       MOBILE FIXES
+    ════════════════════════════════════════════════ */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(10, 13, 20, 0.97);
+        padding: 1.5rem 2rem;
+        border-bottom: 1px solid var(--clr-border);
+      }
+
+      .nav-links.open a {
+        margin-left: 0;
+      }
+
+      .hero-name {
+        font-size: 2.6rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ═══════════════════════ NAVBAR ═══════════════════════ -->
+  <nav class="navbar-custom d-flex align-items-center justify-content-between" id="navbar">
+    <a href="#hero" class="nav-logo">CPS<span>.</span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="d-md-none" id="hamburger">
+      <div class="navbar-toggler-icon-custom">
+        <span id="h1"></span>
+        <span id="h2"></span>
+        <span id="h3"></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════ HERO ═══════════════════════ -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="container">
+      <div class="row align-items-center g-5">
+
+        <!-- Left: Text -->
+        <div class="col-lg-7 hero-content">
+          <div class="hero-tag">&#x25CF;&nbsp; Open to Opportunities</div>
+          <h1 class="hero-name">
+            <span class="line"><span class="line-inner">Chandan</span></span>
+            <span class="line"><span class="line-inner">Prasad Sah</span></span>
+            <span class="line"><span class="line-inner">.NET Developer</span></span>
+          </h1>
+          <p class="hero-sub">
+            Full Stack .NET Developer with 2.6+ years crafting enterprise ERP systems.
+            Passionate about clean architecture, performant SQL, and APIs that just work.
+          </p>
+          <div class="hero-cta d-flex flex-wrap gap-3">
+            <a href="#projects" class="btn-primary-custom">
+              <i class="bi bi-grid-1x2-fill"></i> View Projects
+            </a>
+            <a href="#contact" class="btn-outline-custom">
+              <i class="bi bi-send-fill"></i> Get In Touch
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: Profile Photo + Floating Code Card -->
+        <div class="col-lg-5 d-none d-lg-block">
+
+          <!--
+        ══════════════════════════════════════════════════════
+        PROFILE IMAGE
+        ══════════════════════════════════════════════════════
+        HOW TO USE:
+          1. Place your photo (any name, e.g. profile.jpg) in the
+             SAME folder as this index.html file.
+          2. Change the src below to match your filename:
+               src="profile.jpg"   ← update this
+        ══════════════════════════════════════════════════════
+
+        ANIMATION CONCEPT — Photo Fade-In + Glow:
+          • opacity: 0 → 1  via CSS @keyframes 'heroImgFade'
+            (triggered on page load with animation-delay so it
+            appears after the text lines have slid in)
+          • The ::after ring spins slowly using 'rotateBorder'
+            reusing the same keyframe as the contact section —
+            a conic-gradient border that rotates around the frame.
+          • CSS filter: brightness transition on hover lifts the
+            image warmth as a micro-interaction.
+        ══════════════════════════════════════════════════════
+        -->
+          <div class="hero-photo-wrap">
+            <img src="profile.jpg" alt="Chandan Prasad Sah" class="hero-photo"
+              onerror="this.parentElement.classList.add('photo-missing')" />
+            <!-- Fallback shown when no image is placed yet -->
+            <div class="photo-placeholder">
+              <i class="bi bi-person-fill"></i>
+              <span>Add profile.jpg here</span>
+            </div>
+          </div>
+
+          <div class="hero-card">
+            <div class="card-title">// developer.profile.json</div>
+            <div class="code-line"><span class="code-obj">{</span></div>
+            <div class="code-line">&nbsp;&nbsp;<span class="code-key">"name"</span>: <span class="code-str">"Chandan
+                Prasad Sah"</span>,</div>
+            <div class="code-line">&nbsp;&nbsp;<span class="code-key">"role"</span>: <span class="code-str">"Full Stack
+                .NET Developer"</span>,</div>
+            <div class="code-line">&nbsp;&nbsp;<span class="code-key">"experience"</span>: <span
+                class="code-num">2.6</span>,</div>
+            <div class="code-line">&nbsp;&nbsp;<span class="code-key">"location"</span>: <span class="code-str">"Pune,
+                India"</span>,</div>
+            <div class="code-line">&nbsp;&nbsp;<span class="code-key">"stack"</span>: [</div>
+            <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-str">"ASP.NET MVC"</span>, <span
+                class="code-str">"C#"</span>,</div>
+            <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-str">"MS SQL"</span>, <span
+                class="code-str">"Web API"</span></div>
+            <div class="code-line">&nbsp;&nbsp;],</div>
+            <div class="code-line">&nbsp;&nbsp;<span class="code-key">"status"</span>: <span
+                class="code-str">"available"</span> <span class="cursor"></span></div>
+            <div class="code-line"><span class="code-obj">}</span></div>
+
+            <div class="stat-grid">
+              <div class="stat-item text-center">
+                <div class="num" id="countModules">0</div>
+                <div class="label">ERP Modules</div>
+              </div>
+              <div class="stat-item text-center">
+                <div class="num" id="countAPIs">0</div>
+                <div class="label">APIs Built</div>
+              </div>
+              <div class="stat-item text-center">
+                <div class="num" id="countYears">0</div>
+                <div class="label">Years Exp.</div>
+              </div>
+            </div>
+          </div><!-- /hero-card -->
+        </div><!-- /col-lg-5 -->
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════ SKILLS ═══════════════════════ -->
+  <section id="skills" class="section-wrap">
+    <div class="container">
+
+      <div class="row mb-5 reveal">
+        <div class="col-12">
+          <div class="section-label">02 / Skills</div>
+          <h2 class="section-title">Technical <span class="accent">Arsenal</span></h2>
+          <div class="section-divider"></div>
+        </div>
+      </div>
+
+      <!-- Skill Category Cards (Bootstrap grid for responsiveness) -->
+      <div class="row g-4 mb-5">
+        <div class="col-md-6 col-lg-4 reveal">
+          <div class="skill-category">
+            <div class="skill-cat-icon"><i class="bi bi-code-slash"></i></div>
+            <div class="skill-cat-title">Languages</div>
+            <div class="skill-tags">
+              <span class="skill-tag">C#</span>
+              <span class="skill-tag">T-SQL</span>
+              <span class="skill-tag">JavaScript ES6</span>
+              <span class="skill-tag">HTML5</span>
+              <span class="skill-tag">CSS3</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 reveal">
+          <div class="skill-category">
+            <div class="skill-cat-icon"><i class="bi bi-layers-fill"></i></div>
+            <div class="skill-cat-title">Frameworks & Libraries</div>
+            <div class="skill-tags">
+              <span class="skill-tag">ASP.NET MVC 5</span>
+              <span class="skill-tag">.NET Core</span>
+              <span class="skill-tag">Web API</span>
+              <span class="skill-tag">ADO.NET</span>
+              <span class="skill-tag">Entity Framework</span>
+              <span class="skill-tag">LINQ</span>
+              <span class="skill-tag">jQuery</span>
+              <span class="skill-tag">React (Basics)</span>
+              <span class="skill-tag">Bootstrap</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 reveal">
+          <div class="skill-category">
+            <div class="skill-cat-icon"><i class="bi bi-database-fill"></i></div>
+            <div class="skill-cat-title">Database</div>
+            <div class="skill-tags">
+              <span class="skill-tag">MS SQL Server 2019</span>
+              <span class="skill-tag">Stored Procedures</span>
+              <span class="skill-tag">Indexing</span>
+              <span class="skill-tag">Query Optimisation</span>
+              <span class="skill-tag">Execution Plans</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 reveal">
+          <div class="skill-category">
+            <div class="skill-cat-icon"><i class="bi bi-diagram-3-fill"></i></div>
+            <div class="skill-cat-title">Architecture</div>
+            <div class="skill-tags">
+              <span class="skill-tag">3-Tier / N-Tier</span>
+              <span class="skill-tag">RESTful API</span>
+              <span class="skill-tag">OOP</span>
+              <span class="skill-tag">MVC Pattern</span>
+              <span class="skill-tag">Microservices (basic)</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 reveal">
+          <div class="skill-category">
+            <div class="skill-cat-icon"><i class="bi bi-cloud-fill"></i></div>
+            <div class="skill-cat-title">DevOps & Cloud</div>
+            <div class="skill-tags">
+              <span class="skill-tag">Azure DevOps</span>
+              <span class="skill-tag">Git</span>
+              <span class="skill-tag">Microsoft Azure</span>
+              <span class="skill-tag">CI/CD</span>
+              <span class="skill-tag">Docker (basic)</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 reveal">
+          <div class="skill-category">
+            <div class="skill-cat-icon"><i class="bi bi-tools"></i></div>
+            <div class="skill-cat-title">Tools</div>
+            <div class="skill-tags">
+              <span class="skill-tag">Visual Studio</span>
+              <span class="skill-tag">SSMS 21</span>
+              <span class="skill-tag">VS Code</span>
+              <span class="skill-tag">Postman</span>
+              <span class="skill-tag">Swagger</span>
+              <span class="skill-tag">IIS</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Proficiency Bars (Anime.js animated) -->
+      <div class="row g-4">
+        <div class="col-lg-6 reveal">
+          <h5 class="section-label mb-3">Core Proficiency</h5>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar-label"><span>C# / ASP.NET MVC</span><span>90%</span></div>
+            <div class="skill-bar-track">
+              <div class="skill-bar-fill" data-width="90"></div>
+            </div>
+          </div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar-label"><span>MS SQL Server / T-SQL</span><span>88%</span></div>
+            <div class="skill-bar-track">
+              <div class="skill-bar-fill" data-width="88"></div>
+            </div>
+          </div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar-label"><span>Web API / RESTful Design</span><span>85%</span></div>
+            <div class="skill-bar-track">
+              <div class="skill-bar-fill" data-width="85"></div>
+            </div>
+          </div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar-label"><span>ADO.NET / Entity Framework</span><span>82%</span></div>
+            <div class="skill-bar-track">
+              <div class="skill-bar-fill" data-width="82"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 reveal">
+          <h5 class="section-label mb-3">Expanding Skills</h5>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar-label"><span>JavaScript / jQuery</span><span>78%</span></div>
+            <div class="skill-bar-track">
+              <div class="skill-bar-fill" data-width="78"></div>
+            </div>
+          </div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar-label"><span>.NET Core</span><span>72%</span></div>
+            <div class="skill-bar-track">
+              <div class="skill-bar-fill" data-width="72"></div>
+            </div>
+          </div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar-label"><span>Azure DevOps / CI-CD</span><span>68%</span></div>
+            <div class="skill-bar-track">
+              <div class="skill-bar-fill" data-width="68"></div>
+            </div>
+          </div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar-label"><span>React (Basics)</span><span>45%</span></div>
+            <div class="skill-bar-track">
+              <div class="skill-bar-fill" data-width="45"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════ EXPERIENCE ═══════════════════════ -->
+  <section id="experience" class="section-wrap">
+    <div class="container">
+
+      <div class="row mb-5 reveal">
+        <div class="col-12">
+          <div class="section-label">03 / Experience</div>
+          <h2 class="section-title">Work <span class="accent">History</span></h2>
+          <div class="section-divider"></div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-8 offset-lg-1">
+          <div class="timeline">
+            <!-- Item 1 -->
+            <div class="timeline-item reveal">
+              <div class="timeline-dot"></div>
+              <div class="timeline-card">
+                <div class="timeline-role">Software Developer</div>
+                <div class="timeline-company">Spidosoft Technologies OPC Pvt. Ltd.</div>
+                <div class="timeline-period">Nov 2023 – Present &nbsp;|&nbsp; Pune &nbsp;|&nbsp; Full-time</div>
+                <ul class="timeline-bullets ps-3">
+                  <li>Resolved performance lag on 8+ Master module data grids — applied server-side pagination &amp;
+                    T-SQL indexing, boosting retrieval speed for daily transactional loads.</li>
+                  <li>Built dual-layer validation framework (Data Annotations + server-side), reducing form submission
+                    errors by ~65%.</li>
+                  <li>Designed and integrated 25+ RESTful Web API endpoints consumed by mobile, desktop and external
+                    platforms.</li>
+                  <li>Rewrote 7 Purchase module SQL report procedures using optimised joins &amp; indexing — reports now
+                    generate near-instantly.</li>
+                  <li>Architected backend modules applying OOP &amp; structured exception management across 2+
+                    application layers.</li>
+                  <li>Collaborated in a 4-member Agile Scrum team on Azure DevOps through sprint planning to production
+                    releases.</li>
+                </ul>
+                <div class="d-flex flex-wrap gap-2 mt-3">
+                  <span class="project-tag">ASP.NET MVC 5</span>
+                  <span class="project-tag">C#</span>
+                  <span class="project-tag">ADO.NET</span>
+                  <span class="project-tag">MS SQL</span>
+                  <span class="project-tag">Web API</span>
+                  <span class="project-tag">Azure DevOps</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="timeline-item reveal">
+              <div class="timeline-dot" style="background: var(--clr-accent2);"></div>
+              <div class="timeline-card">
+                <div class="timeline-role">Data Science Intern</div>
+                <div class="timeline-company">Corizo</div>
+                <div class="timeline-period">Dec 2023 – Jan 2024 &nbsp;|&nbsp; Remote &nbsp;|&nbsp; Internship</div>
+                <ul class="timeline-bullets ps-3">
+                  <li>Completed intensive data science traineeship focusing on applied ML concepts and data analysis
+                    workflows.</li>
+                </ul>
+                <div class="d-flex flex-wrap gap-2 mt-3">
+                  <span class="project-tag">Data Science</span>
+                  <span class="project-tag">Machine Learning</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════ PROJECTS ═══════════════════════ -->
+  <section id="projects" class="section-wrap">
+    <div class="container">
+
+      <div class="row mb-5 reveal">
+        <div class="col-12">
+          <div class="section-label">04 / Projects</div>
+          <h2 class="section-title">Featured <span class="accent">Work</span></h2>
+          <div class="section-divider"></div>
+        </div>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-4 reveal">
+          <div class="project-card">
+            <div class="project-num">01</div>
+            <div class="project-title">Manufacturing Industrial ERP System</div>
+            <p class="project-desc">
+              Large-scale production-grade ERP covering procurement, HR, quality &amp; sales operations.
+              13+ modules on a scalable 3-tier architecture. Delivered Master, Purchase (7-stage workflow) &amp; Sales
+              modules.
+            </p>
+            <div class="project-tags">
+              <span class="project-tag">ASP.NET MVC 5</span>
+              <span class="project-tag">C#</span>
+              <span class="project-tag">ADO.NET</span>
+              <span class="project-tag">MS SQL</span>
+              <span class="project-tag">Web API</span>
+              <span class="project-tag">Bootstrap 3</span>
+              <span class="project-tag">jQuery</span>
+              <span class="project-tag">Azure DevOps</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4 reveal">
+          <div class="project-card">
+            <div class="project-num">02</div>
+            <div class="project-title">REST API Layer — ERP Data Exchange</div>
+            <p class="project-desc">
+              Designed and shipped 25+ RESTful Web API endpoints enabling structured data exchange
+              across mobile &amp; desktop apps and external platform integrations within the ERP ecosystem.
+            </p>
+            <div class="project-tags">
+              <span class="project-tag">Web API</span>
+              <span class="project-tag">RESTful Design</span>
+              <span class="project-tag">Postman</span>
+              <span class="project-tag">Swagger</span>
+              <span class="project-tag">C#</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4 reveal">
+          <div class="project-card">
+            <div class="project-num">03</div>
+            <div class="project-title">SQL Performance Optimisation Suite</div>
+            <p class="project-desc">
+              Analysed slow execution plans across 7 Purchase module report procedures.
+              Rewrote queries with optimised joins, targeted indexing &amp; T-SQL scalar/table-valued functions —
+              reducing report generation to near-instant.
+            </p>
+            <div class="project-tags">
+              <span class="project-tag">T-SQL</span>
+              <span class="project-tag">SSMS</span>
+              <span class="project-tag">Indexing</span>
+              <span class="project-tag">Execution Plans</span>
+              <span class="project-tag">SQL Functions</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ════════════════════════════════════════════════════════
+           ➕ ADD MORE PROJECTS BELOW — COPY THE BLOCK BELOW
+           ════════════════════════════════════════════════════════
+           To add a new project:
+             1. Copy the entire <div class="col-md-6 col-lg-4 reveal"> block below.
+             2. Paste it here (before this comment, after the last project).
+             3. Update:
+                  project-num  → next number (04, 05, ...)
+                  project-title → your project name
+                  project-desc  → short description
+                  project-tag spans → your tech stack tags
+                  The "reveal" class on the col div ensures
+                  Anime.js will automatically animate it on scroll.
+           ════════════════════════════════════════════════════════
+
+      <div class="col-md-6 col-lg-4 reveal">
+        <div class="project-card">
+          <div class="project-num">04</div>
+          <div class="project-title">Your Next Project Title</div>
+          <p class="project-desc">
+            Brief description of what this project does, what problem it solves,
+            and what your specific contribution or achievement was.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag">Tech 1</span>
+            <span class="project-tag">Tech 2</span>
+            <span class="project-tag">Tech 3</span>
+          </div>
+        </div>
+      </div>
+
+      ══════════════════════════════════════════════════════════ -->
+
+      </div>
+
+      <!-- ════════════════════════════════════════════
+         SHOW MORE / FUTURE EXPANSION BUTTON
+         When you have 6+ projects, you can use this
+         button with jQuery to toggle hidden cards:
+           $('.project-extra').toggleClass('d-none');
+         Then wrap additional project cols in:
+           <div class="col-md-6 col-lg-4 reveal project-extra d-none">
+         ════════════════════════════════════════════ -->
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════ ABOUT / EDUCATION ═══════════════════════ -->
+  <section id="about" class="section-wrap">
+    <div class="container">
+
+      <div class="row mb-5 reveal">
+        <div class="col-12">
+          <div class="section-label">05 / About</div>
+          <h2 class="section-title">About <span class="accent">Me</span></h2>
+          <div class="section-divider"></div>
+        </div>
+      </div>
+
+      <div class="row g-5 align-items-center">
+        <div class="col-lg-6 reveal">
+          <div class="about-highlight">
+            <p>
+              I'm a Full Stack .NET Developer based in Pune, India, with 2.6+ years building mission-critical
+              enterprise ERP software at Spidosoft Technologies. I specialise in the Microsoft stack —
+              from writing performant T-SQL procedures to designing clean RESTful APIs and MVC backends that scale.
+            </p>
+            <br />
+            <p>
+              I thrive in Agile Scrum teams, take end-to-end ownership of features, and obsess over
+              code quality — whether that's reducing form errors 65% through layered validation or
+              cutting report generation time from minutes to milliseconds via query optimisation.
+              Currently deepening my expertise in .NET Core and Entity Framework.
+            </p>
+          </div>
+        </div>
+        <div class="col-lg-6 reveal">
+          <h5 class="section-label mb-3">Education</h5>
+          <div class="edu-card">
+            <div class="edu-icon">🎓</div>
+            <div>
+              <div class="edu-degree">B.Tech — Computer Science &amp; Engineering</div>
+              <div class="edu-school">MIT World Peace University, Pune</div>
+              <div class="edu-year">2020 – 2024</div>
+            </div>
+          </div>
+          <div class="row g-3 mt-3">
+            <div class="col-6">
+              <div class="skill-category text-center">
+                <div class="skill-cat-icon mx-auto"><i class="bi bi-award-fill"></i></div>
+                <div class="skill-cat-title mt-2">Agile Scrum</div>
+                <div class="skill-tags justify-content-center"><span class="skill-tag">Azure DevOps</span></div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="skill-category text-center">
+                <div class="skill-cat-icon mx-auto"><i class="bi bi-patch-check-fill"></i></div>
+                <div class="skill-cat-title mt-2">Certified</div>
+                <div class="skill-tags justify-content-center"><span class="skill-tag">Traineeship</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════ CONTACT ═══════════════════════ -->
+  <section id="contact" class="section-wrap">
+    <div class="container">
+      <div class="contact-strip reveal">
+        <div class="contact-inner">
+          <div class="section-label text-center mb-2">06 / Contact</div>
+          <h2 class="contact-heading">Let's Build Something</h2>
+          <p class="contact-sub">
+            Open to full-stack .NET roles with broader backend scope and deeper enterprise responsibility.
+            Drop a message — I respond fast.
+          </p>
+          <div class="contact-links">
+            <a href="mailto:chandanpsah11@gmail.com" class="contact-link">
+              <i class="bi bi-envelope-fill"></i> chandanpsah11@gmail.com
+            </a>
+            <a href="tel:+918976105620" class="contact-link">
+              <i class="bi bi-telephone-fill"></i> +91 8976105620
+            </a>
+            <a href="https://linkedin.com/in/chandanpsah11" target="_blank" class="contact-link">
+              <i class="bi bi-linkedin"></i> LinkedIn
+            </a>
+            <a href="#" class="contact-link">
+              <i class="bi bi-geo-alt-fill"></i> Pune, India
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+  <footer>
+    <p>Crafted with <span>♥</span> by Chandan Prasad Sah &nbsp;·&nbsp; <span>2025</span></p>
+  </footer>
+
+
+  <!-- ══════════════════════════════════════════════════════════
+     SCRIPTS
+════════════════════════════════════════════════════════════ -->
+  <!-- Bootstrap 5 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- jQuery 3.7 -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <!-- Anime.js 3.2.1 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+
+  <script>
+    $(document).ready(function () {
+
+      /* ══════════════════════════════════════════════════
+         HAMBURGER MENU (jQuery toggle)
+         CONCEPT: jQuery .toggleClass() switches the CSS 'open'
+         class, which in CSS uses display:flex to show the nav.
+      ══════════════════════════════════════════════════ */
+      $('#hamburger').on('click', function () {
+        $('#navLinks').toggleClass('open');
+        // ANIMATION: Anime.js rotates the hamburger bars into an X on open
+        const isOpen = $('#navLinks').hasClass('open');
+        anime({
+          targets: '#h1',
+          rotate: isOpen ? 45 : 0,
+          translateY: isOpen ? 7 : 0,
+          easing: 'easeOutExpo',
+          duration: 350
+        });
+        anime({
+          targets: '#h2',
+          opacity: isOpen ? 0 : 1,
+          easing: 'easeOutExpo',
+          duration: 250
+        });
+        anime({
+          targets: '#h3',
+          rotate: isOpen ? -45 : 0,
+          translateY: isOpen ? -7 : 0,
+          easing: 'easeOutExpo',
+          duration: 350
+        });
+      });
+
+      /* ══════════════════════════════════════════════════
+         SCROLL SPY — highlight active nav link
+         CONCEPT: jQuery .scroll() reads page offset and
+         matches it against section offsets to add/remove
+         .active style class (color change via CSS var).
+      ══════════════════════════════════════════════════ */
+      $(window).on('scroll', function () {
+        const scrollPos = $(this).scrollTop() + 120;
+        $('section[id]').each(function () {
+          const top = $(this).offset().top;
+          const bot = top + $(this).outerHeight();
+          const id = $(this).attr('id');
+          if (scrollPos >= top && scrollPos < bot) {
+            $('.nav-links a').css('color', '');
+            $(`.nav-links a[href="#${id}"]`).css('color', 'var(--clr-accent)');
+          }
+        });
+      });
+
+      /* ══════════════════════════════════════════════════
+         COUNTER ANIMATION (Anime.js)
+         CONCEPT: anime() tweens a plain JS object's numeric
+         property from 0 to target, and the update() callback
+         writes the rounded value to the DOM — creating a
+         "counting up" number animation on page load.
+      ══════════════════════════════════════════════════ */
+      function animateCounter(id, target, suffix = '') {
+        anime({
+          targets: { value: 0 },
+          value: target,
+          duration: 2000,
+          easing: 'easeOutExpo',
+          delay: 1400,
+          update: function (anim) {
+            $('#' + id).text(Math.round(anim.animations[0].currentValue) + suffix);
+          }
+        });
+      }
+      animateCounter('countModules', 13, '+');
+      animateCounter('countAPIs', 25, '+');
+      animateCounter('countYears', 2.6, '');
+      // For 2.6 we override with a decimal-aware version:
+      anime({
+        targets: { value: 0 },
+        value: 2.6,
+        duration: 2000,
+        easing: 'easeOutExpo',
+        delay: 1400,
+        update: function (anim) {
+          $('#countYears').text(parseFloat(anim.animations[0].currentValue).toFixed(1));
+        }
+      });
+
+
+      /* ══════════════════════════════════════════════════
+         INTERSECTION OBSERVER + ANIME.JS SCROLL REVEAL
+         CONCEPT: IntersectionObserver fires when .reveal elements
+         enter the viewport. Anime.js then animates:
+           opacity: 0 → 1  (fade in)
+           translateY: 40 → 0  (float up)
+         The delay is staggered per element for a cascade effect.
+      ══════════════════════════════════════════════════ */
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            anime({
+              targets: entry.target,
+              opacity: [0, 1],
+              translateY: [40, 0],
+              easing: 'easeOutCubic',
+              duration: 750,
+              delay: 80
+            });
+            entry.target.classList.add('animated');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+
+      /* ══════════════════════════════════════════════════
+         SKILL BAR ANIMATION (Anime.js)
+         CONCEPT: Each .skill-bar-fill starts at width:0.
+         When the skills section enters viewport, Anime.js
+         tweens each bar's width to its data-width percentage.
+         Staggered delay creates a "loading" cascade effect.
+      ══════════════════════════════════════════════════ */
+      const barsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const bars = entry.target.querySelectorAll('.skill-bar-fill');
+            bars.forEach((bar, i) => {
+              anime({
+                targets: bar,
+                width: bar.dataset.width + '%',
+                easing: 'easeInOutQuart',
+                duration: 1100,
+                delay: i * 120   // stagger: each bar starts 120ms after the previous
+              });
+            });
+            barsObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2 });
+
+      document.querySelectorAll('.row.g-4 + .row').forEach(el => barsObserver.observe(el));
+      // Also observe the bars row directly
+      document.querySelectorAll('#skills .row.g-4:last-of-type').forEach(el => barsObserver.observe(el));
+
+
+      /* ══════════════════════════════════════════════════
+         TIMELINE LINE REVEAL (Anime.js)
+         CONCEPT: The vertical timeline line starts at scaleY(0)
+         and Anime.js animates it to scaleY(1) when the section
+         enters view. transform-origin: top makes it "draw" downward.
+      ══════════════════════════════════════════════════ */
+      const timelineObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            anime({
+              targets: '.timeline::before',
+              scaleY: [0, 1],
+              easing: 'easeInOutCubic',
+              duration: 1500,
+              delay: 300
+            });
+            timelineObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      const timeline = document.querySelector('.timeline');
+      if (timeline) timelineObserver.observe(timeline);
+
+
+      /* ══════════════════════════════════════════════════
+         HERO TAG ENTRANCE (Anime.js)
+         CONCEPT: Keyframes array — sequential property states.
+         The tag bounces in using custom easing on scale + opacity.
+      ══════════════════════════════════════════════════ */
+      anime({
+        targets: '.hero-tag',
+        keyframes: [
+          { opacity: 0, scale: 0.7 },
+          { opacity: 1, scale: 1.05 },
+          { scale: 1 }
+        ],
+        easing: 'easeOutElastic(1, .7)',
+        duration: 1000,
+        delay: 100
+      });
+
+
+      /* ══════════════════════════════════════════════════
+         SKILL CARD HOVER — Anime.js icon spin
+         CONCEPT: On jQuery mouseenter, Anime.js rotates the
+         icon inside the card 360° (full spin), then resets.
+         Adds personality without constant animation overhead.
+      ══════════════════════════════════════════════════ */
+      $('.skill-category').on('mouseenter', function () {
+        anime({
+          targets: $(this).find('.skill-cat-icon')[0],
+          rotate: '+=360',
+          duration: 600,
+          easing: 'easeInOutSine'
+        });
+      });
+
+
+      /* ══════════════════════════════════════════════════
+         PROJECT CARD HOVER — Anime.js project number bounce
+         CONCEPT: On hover, the large background number (01, 02...)
+         Anime.js translates it upward + increases opacity slightly,
+         creating a subtle parallax-within-card depth effect.
+      ══════════════════════════════════════════════════ */
+      $('.project-card').on('mouseenter', function () {
+        anime({
+          targets: $(this).find('.project-num')[0],
+          translateY: -8,
+          opacity: 0.12,
+          duration: 400,
+          easing: 'easeOutCubic'
+        });
+      }).on('mouseleave', function () {
+        anime({
+          targets: $(this).find('.project-num')[0],
+          translateY: 0,
+          opacity: 0.05,
+          duration: 400,
+          easing: 'easeOutCubic'
+        });
+      });
+
+
+      /* ══════════════════════════════════════════════════
+         CTA BUTTON RIPPLE (jQuery + CSS)
+         CONCEPT: On click, a ripple element is appended at
+         click coordinates and animated outward via Anime.js
+         scale + opacity, then removed — imitates Material Design
+         ink ripple for tactile click feedback.
+      ══════════════════════════════════════════════════ */
+      $('.btn-primary-custom, .btn-outline-custom').on('click', function (e) {
+        const $btn = $(this);
+        const offset = $btn.offset();
+        const x = e.pageX - offset.left;
+        const y = e.pageY - offset.top;
+        const $ripple = $('<span>').css({
+          position: 'absolute',
+          left: x, top: y,
+          width: 8, height: 8,
+          marginLeft: -4, marginTop: -4,
+          borderRadius: '50%',
+          background: 'rgba(0,229,255,0.45)',
+          pointerEvents: 'none',
+          transform: 'scale(0)'
+        });
+        $btn.css('position', 'relative').css('overflow', 'hidden').append($ripple);
+        anime({
+          targets: $ripple[0],
+          scale: [0, 22],
+          opacity: [0.6, 0],
+          duration: 600,
+          easing: 'easeOutExpo',
+          complete: () => $ripple.remove()
+        });
+      });
+
+
+      /* ══════════════════════════════════════════════════
+         NAVBAR SCROLL SHRINK (jQuery)
+         CONCEPT: jQuery .scroll() listens to window scroll.
+         When user scrolls past 80px, the navbar padding shrinks
+         using CSS transition — the navbar becomes more compact
+         to reclaim vertical space.
+      ══════════════════════════════════════════════════ */
+      $(window).on('scroll', function () {
+        if ($(this).scrollTop() > 80) {
+          $('#navbar').css('padding', '0.6rem 2rem');
+        } else {
+          $('#navbar').css('padding', '1rem 2rem');
+        }
+      });
+
+    });
+  </script>
+
+</body>
+
+</html>
